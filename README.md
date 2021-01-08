@@ -51,4 +51,3 @@ Iremos avaliar os seguintes pontos:
 - Desenvolva! Você terá **7 dias** a partir da data do envio do desafio.
 - Crie um PROJECT.md com a explicação de como devemos executar o projeto e com o máximo de detalhes possível do que foi feito e das decisões técnicas tomadas;
 - Após concluir faça um pull request.
-- Envie um e-mail para fullstack@climatempo.com.br com seu curriculo, pretensão salarial e o link do seu pull request.
