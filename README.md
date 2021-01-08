@@ -1,6 +1,6 @@
 ### O Desafio
 Os usuários querem saber como vai ficar a previsão do tempo para os próximos 10 dias em sua cidade,
-para isso você foi chamado, sua responsabilidade é desenvolver um aplicativo que consulte a previsão da [API Advisor da Climatempo](https://advisor.climatempo.com.br/) e entregue essas informações aos usuários, a documentação da rota da API Advisor que deve ser utilizada encontra-se em aqui [15 days](http://apiadvisor.climatempo.com.br/doc/index.html#api-Forecast-Forecast15DaysByCity).
+para isso você foi chamado, sua responsabilidade é desenvolver um aplicativo que consulte a previsão da [API Advisor da Climatempo](https://advisor.climatempo.com.br/) e entregue essas informações aos usuários, a documentação da rota da API Advisor que deve ser utilizada encontra-se aqui [15 days](http://apiadvisor.climatempo.com.br/doc/index.html#api-Forecast-Forecast15DaysByCity).
 
 ### Requisitos
 
