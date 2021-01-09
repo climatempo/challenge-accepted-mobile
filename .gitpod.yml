@@ -1,6 +1,14 @@
 image:
   file: .gitpod.Dockerfile
 
+ports:
+- port: 19000-19002
+
 tasks:
-  - init: 'echo "TODO: Replace with init/build command"'
-    command: 'echo "TODO: Replace with command to start project"'
+  - init: npm install
+
+vscode:
+  extensions:
+    - pkief.material-icon-theme@4.4.0:rUeW9VprKCFBXYTvg+AimA==
+    - naumovs.color-highlight@2.3.0:6nKORbxgnWjNaN6xACiaQQ==
+    - dbaeumer.vscode-eslint@2.1.8:02aHhbJ0Q4aGdjHXlTdVKg==
