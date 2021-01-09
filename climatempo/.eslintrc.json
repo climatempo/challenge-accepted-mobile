@@ -1,17 +1,20 @@
 {
   "env": {
-    "es6": true
+    "browser": true,
+    "es6": true,
+    "react-native/react-native": true
   },
   "extends": [
     "plugin:react/recommended",
     "standard",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:react-native/all"
   ],
   "parserOptions": {
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "prettier"],
+  "plugins": ["react", "react-hooks", "prettier", "react-native"],
   "rules": {
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
