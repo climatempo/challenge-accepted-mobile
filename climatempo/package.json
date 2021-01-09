@@ -4,7 +4,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "web": "expo start --web",
-    "start": "expo start --host tunnel",
+    "start": "expo start --tunnel",
     "test": "jest"
   },
   "dependencies": {
