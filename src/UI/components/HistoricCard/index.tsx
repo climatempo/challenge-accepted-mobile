@@ -6,14 +6,11 @@ const HistoricCard: React.FC = () => {
     return (
         <View style={styles.card}>
             <View style={styles.divCard}>
-                <View style={{width: '70%'}}>
+                <View style={{width: '85%'}}>
                     <Text style={styles.h4}>Osasco - SP</Text>
                 </View>
                 <View style={styles.btnSearch}>
                     <Icon name="search-outline" color="#38cf1a" size={35} />
-                </View>
-                <View style={styles.btnRemove}>
-                    <Icon name="trash-outline" color="#cf1a1a" size={35} />
                 </View>
             </View>
         </View>
@@ -42,18 +39,7 @@ const styles = StyleSheet.create({
     btnSearch: {
         width: '15%',
         borderRadius: 7,
-        // borderColor: '#38cf1a',
-        // borderWidth: 1,
         marginRight: 3,
-        paddingLeft: 3,
-        maxHeight: 40,
-    },
-    btnRemove: {
-        width: '15%',
-        // borderColor: '#cf1a1a',
-        // borderWidth: 1,
-        borderRadius: 7,
-        marginLeft: 3,
         paddingLeft: 3,
         maxHeight: 40,
     },
