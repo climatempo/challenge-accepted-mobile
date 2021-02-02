@@ -5,8 +5,8 @@ import HistoricCard from '../../components/HistoricCard';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
 import {ApplicationState} from '../../../store/index';
-import {Historic} from '../../../model/Historic';
-import * as historicActions from '../../../store/ducks/historic/actions';
+import {Historic} from '../../../model/historic/Historic';
+import * as historicActions from '../../../store/reducer/historic/actions';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 
 interface StateProps {
