@@ -1,11 +1,15 @@
 import {applyMiddleware, createStore, Store} from 'redux';
-import {HistoricState} from './ducks/historic/types';
+import {HistoricState} from './reducer/historic/types';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer from './ducks/rootReducer';
-import rootSaga from './ducks/rootSaga';
+import rootReducer from './reducer/rootReducer';
+import rootSaga from './reducer/rootSaga';
+import {CityState} from './reducer/city/types';
+import {ForecastState} from './reducer/forecast/types';
 
 export interface ApplicationState {
     historic: HistoricState;
+    city: CityState;
+    forecast: ForecastState;
 }
 
 const sagaMiddleware = createSagaMiddleware();
