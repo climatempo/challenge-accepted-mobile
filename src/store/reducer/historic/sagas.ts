@@ -1,6 +1,13 @@
 import {call, put} from 'redux-saga/effects';
-import {loadSuccess, loadFailure} from './actions';
+import {loadSuccess, loadFailure, loadRequest} from './actions';
 import {HistoricProvider} from '../../../provider/historicProvider';
+import {Historic} from '../../../model/historic/Historic';
+
+type setHistoricParams = {
+    payload: {
+        item: Historic;
+    };
+};
 
 export function* load() {
     try {
@@ -10,4 +17,16 @@ export function* load() {
     } catch (error) {
         yield put(loadFailure());
     }
+}
+
+export function* setHistoric(params: setHistoricParams) {
+    const historicProvider = new HistoricProvider();
+    yield call(historicProvider.setHistoric, params.payload.item);
+    yield put(loadRequest());
+}
+
+export function* removeHistoric() {
+    const historicProvider = new HistoricProvider();
+    yield call(historicProvider.removeHistoric);
+    yield put(loadRequest());
 }
