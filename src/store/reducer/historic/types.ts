@@ -1,4 +1,4 @@
-import {Historic} from '../../../model/Historic';
+import {Historic} from '../../../model/historic/Historic';
 // Action types
 
 export enum HistoricTypes {

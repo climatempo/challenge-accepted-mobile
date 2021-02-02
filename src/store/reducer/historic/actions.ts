@@ -1,5 +1,5 @@
 import {action} from 'typesafe-actions';
-import {Historic} from '../../../model/Historic';
+import {Historic} from '../../../model/historic/Historic';
 import {HistoricTypes} from './types';
 
 export const loadRequest = () => action(HistoricTypes.LOAD_REQUEST);
