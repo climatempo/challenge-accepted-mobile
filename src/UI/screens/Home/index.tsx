@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     StyleSheet,
     TouchableOpacity,
@@ -26,6 +26,7 @@ interface StateProps {
 interface DispatchProps {
     searchRequest(query: string): void;
     loadRequest(id: number): void;
+    loadLocalStorageRequest(): void;
 }
 
 type Props = StateProps & DispatchProps & DrawerScreenProps<{}>;
@@ -38,7 +39,11 @@ const Home: React.FC<Props> = ({
     error,
     searchRequest,
     loadRequest,
+    loadLocalStorageRequest,
 }) => {
+    useEffect(() => {
+        loadLocalStorageRequest();
+    }, [loadLocalStorageRequest]);
     const [nomeCidade, setNomeCidade] = useState('');
     const [hideAutocomplete, setHideAutocomplete] = useState(true);
     const handleAutocompleteChange = (text: string) => {
@@ -60,12 +65,10 @@ const Home: React.FC<Props> = ({
             <View style={styles.container}>
                 <View style={styles.body}>
                     <View style={styles.header}>
-                        <Icon
-                            name="menu-outline"
-                            size={40}
-                            color="#fff"
-                            onPress={() => navigation.openDrawer()}
-                        />
+                        <TouchableOpacity
+                            onPress={() => navigation.openDrawer()}>
+                            <Icon name="menu-outline" size={40} color="#fff" />
+                        </TouchableOpacity>
                         <View style={styles.viewInput}>
                             <AutoComplete
                                 onChangeText={handleAutocompleteChange}

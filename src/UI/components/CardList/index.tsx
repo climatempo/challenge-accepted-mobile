@@ -14,7 +14,7 @@ const CardList: React.FC<Props> = ({items}) => {
     return (
         <ScrollView style={styles.scrollView}>
             {items.map((item) => (
-                <Card forecastItem={item} />
+                <Card key={item.date} forecastItem={item} />
             ))}
         </ScrollView>
     );
