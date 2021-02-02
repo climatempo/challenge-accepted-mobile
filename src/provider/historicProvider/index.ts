@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Historic} from '../../model/Historic';
+import {Historic} from '../../model/historic/Historic';
 
 export class HistoricProvider {
     localStorageKey = 'historicKey';
