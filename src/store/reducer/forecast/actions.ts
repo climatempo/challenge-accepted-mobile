@@ -7,3 +7,5 @@ export const loadRequest = (id: number) =>
 export const loadSuccess = (data: Forecast) =>
     action(ForecastTypes.LOAD_SUCCESS, {data});
 export const loadFailure = () => action(ForecastTypes.LOAD_FAILURE);
+export const loadLocalStorageRequest = () =>
+    action(ForecastTypes.LOAD_LOCALSTORAGE_REQUEST);
