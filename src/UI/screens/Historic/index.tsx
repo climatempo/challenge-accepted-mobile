@@ -1,5 +1,12 @@
-import React from 'react';
-import {View, StyleSheet, StatusBar, ScrollView, Text} from 'react-native';
+import React, {useEffect} from 'react';
+import {
+    View,
+    StyleSheet,
+    StatusBar,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HistoricCard from '../../components/HistoricCard';
 import {connect} from 'react-redux';
@@ -14,6 +21,7 @@ interface StateProps {
 }
 interface DispatchProps {
     loadRequest(): void;
+    removeHistoricRequest(): void;
 }
 
 type Props = StateProps & DispatchProps & DrawerScreenProps<{}>;
@@ -21,7 +29,11 @@ const HistoricScreen: React.FC<Props> = ({
     navigation,
     historic,
     loadRequest,
+    removeHistoricRequest,
 }) => {
+    useEffect(() => {
+        loadRequest();
+    }, [loadRequest]);
     return (
         <>
             <StatusBar backgroundColor="#181818" barStyle="default" />
@@ -30,22 +42,25 @@ const HistoricScreen: React.FC<Props> = ({
                 style={styles.container}>
                 <View style={styles.body}>
                     <View style={styles.header}>
-                        <Icon
-                            name="menu-outline"
-                            size={40}
-                            color="#fff"
-                            onPress={() => navigation.openDrawer()}
-                        />
-                        <View style={styles.btnRemove}>
-                            <Icon
-                                name="trash-outline"
-                                color="#cf1a1a"
-                                size={35}
-                            />
-                        </View>
+                        <TouchableOpacity
+                            onPress={() => navigation.openDrawer()}>
+                            <Icon name="menu-outline" size={40} color="#fff" />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => removeHistoricRequest()}>
+                            <View style={styles.btnRemove}>
+                                <Icon
+                                    name="trash-outline"
+                                    color="#cf1a1a"
+                                    size={35}
+                                />
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <Text style={styles.h4}>Histórico de Pesquisa</Text>
-                    <HistoricCard />
+                    {historic.map((item) => (
+                        <HistoricCard historicItem={item} />
+                    ))}
                 </View>
             </ScrollView>
         </>

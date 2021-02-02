@@ -1,22 +1,21 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {Historic} from '../../../model/historic/Historic';
 
-const HistoricCard: React.FC = () => {
+interface OwnProps {
+    historicItem: Historic;
+}
+const HistoricCard: React.FC<OwnProps> = ({historicItem}) => {
     return (
         <View style={styles.card}>
             <View style={styles.divCard}>
-                <View style={{width: '85%'}}>
-                    <Text style={styles.h4}>Osasco - SP</Text>
-                </View>
-                <View style={styles.btnSearch}>
-                    <Icon name="search-outline" color="#38cf1a" size={35} />
+                <View>
+                    <Text style={styles.h4}>{historicItem.name}</Text>
                 </View>
             </View>
         </View>
     );
 };
-
 const styles = StyleSheet.create({
     card: {
         marginTop: 10,
