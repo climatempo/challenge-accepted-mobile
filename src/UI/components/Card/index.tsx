@@ -1,34 +1,51 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import IconF from 'react-native-vector-icons/Fontisto';
 import IconSimple from 'react-native-vector-icons/SimpleLineIcons';
+import {ForecastItem} from '../../../model/forecast/ForecastItem';
 
-const Card: React.FC = () => {
+interface OwnProps {
+    forecastItem: ForecastItem;
+}
+
+const Card: React.FC<OwnProps> = ({forecastItem}) => {
     return (
         <View style={styles.card}>
-            <Text style={(styles.title, styles.textColor)}>30/05/2001</Text>
-            <Text style={(styles.subTitle, styles.textColor)}>
-                Sol com muitas nuvens durante o dia. Períodos de nublado, com
-                chuva a qualquer hora
-            </Text>
+            <View style={styles.divTitle}>
+                <Text style={styles.title}>{forecastItem.date}</Text>
+                <View style={styles.titleIcon}>
+                    <IconF name="wind" size={30} color="#fff" />
+                    <Text style={styles.textIcons}>
+                        {forecastItem.windVelocity} km/h
+                    </Text>
+                </View>
+            </View>
+            <Text style={styles.subTitle}>{forecastItem.text}</Text>
             <View style={styles.divCard}>
                 <View style={styles.divIcon}>
-                    <Icon name="arrow-up-outline" size={40} color="#fff" />
-                    <Text style={styles.textIcons}>20°</Text>
+                    <Icon name="arrow-up-outline" size={35} color="#fff" />
+                    <Text style={styles.textIcons}>
+                        {forecastItem.temperatureMax}° C
+                    </Text>
                 </View>
                 <View style={styles.divIcon}>
-                    <IconSimple name="drop" size={40} color="#fff" />
-                    <Text style={styles.textIcons}>10mm</Text>
+                    <IconSimple name="drop" size={35} color="#fff" />
+                    <Text style={styles.textIcons}>
+                        {forecastItem.humidity}mm
+                    </Text>
                 </View>
             </View>
             <View style={styles.divCard}>
                 <View style={styles.divIcon}>
-                    <Icon name="arrow-down-outline" size={40} color="#fff" />
-                    <Text style={styles.textIcons}>20°</Text>
+                    <Icon name="arrow-down-outline" size={35} color="#fff" />
+                    <Text style={styles.textIcons}>
+                        {forecastItem.temperatureMin}° C
+                    </Text>
                 </View>
                 <View style={styles.divIcon}>
-                    <Icon name="umbrella-outline" size={40} color="#fff" />
-                    <Text style={styles.textIcons}>50%</Text>
+                    <Icon name="umbrella-outline" size={35} color="#fff" />
+                    <Text style={styles.textIcons}>{forecastItem.rain}%</Text>
                 </View>
             </View>
         </View>
@@ -39,22 +56,17 @@ const styles = StyleSheet.create({
     card: {
         marginTop: 10,
         marginBottom: 10,
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        width: '80%',
         paddingHorizontal: '5%',
         paddingVertical: '5%',
         borderRadius: 15,
         backgroundColor: '#303030',
     },
     title: {
-        fontSize: 18,
+        fontSize: 20,
+        color: '#fff',
     },
     subTitle: {
-        fontSize: 14,
-    },
-    textColor: {
+        fontSize: 15,
         color: '#fff',
     },
     divCard: {
@@ -66,10 +78,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     textIcons: {
-        marginTop: 10,
+        marginTop: 3,
         marginLeft: 10,
         fontSize: 20,
         color: '#fff',
+    },
+    divTitle: {
+        flexDirection: 'row',
+        alignSelf: 'stretch',
+        justifyContent: 'space-between',
+    },
+    titleIcon: {
+        flexDirection: 'row',
+        marginBottom: 10,
     },
 });
 export default Card;
