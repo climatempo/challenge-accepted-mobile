@@ -1,6 +1,7 @@
 import {Forecast} from '../../model/forecast/Forecast';
 import axios from 'axios';
 import {ForecastResponse} from '../../model/forecast/ForecastResponse';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const token = '0f8eb132cad772d27535111ee3826c20';
 export class ForecastProvider {
@@ -23,5 +24,18 @@ export class ForecastProvider {
                 humidity: (value.humidity.max + value.humidity.min) / 2,
             })),
         };
+    }
+
+    async loadFromLocalStorage(): Promise<Forecast> {
+        const json = await AsyncStorage.getItem('forecastItemkey');
+        if (json === null) {
+            return {city: '', items: []};
+        }
+        const parsedJon = JSON.parse(json);
+        return parsedJon as Forecast;
+    }
+
+    async setForecastOnLocalStorage(item: Forecast): Promise<void> {
+        await AsyncStorage.setItem('forecastItemkey', JSON.stringify(item));
     }
 }
