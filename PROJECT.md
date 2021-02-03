@@ -2,6 +2,10 @@
 
 ## Desafio Climatempo
 
+## App rodando
+![](desafioClimaTempo.gif)
+(As cores do gif não estão condizentes com o app)
+
 ## Tecnologias usadas
  - Typescript
    - Usado para tipagem e autocomplete, pois, facilita na hora de saber quais dados vão ser enviados e recebidos de uma camada (classes, servições, etc.).
@@ -9,8 +13,10 @@
    - Gerenciar estado global do app.
  - Saga
    - Middleware do redux e facilita na hora de integrar serviços (API por exemplo) no redux.
+
 ## Configurações
   Antes de rodar o projeto crie um .env baseado no .env.example
+
 ## Install
 Caso não tenha o yarn 
 `npm install --global yarn`
