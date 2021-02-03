@@ -4,13 +4,13 @@ import {connect} from 'react-redux';
 import {ForecastItem} from '../../../model/forecast/ForecastItem';
 import {ApplicationState} from '../../../store';
 import Card from '../Card';
-// import { Container } from './styles';
+
 interface Stateprops {
     items: ForecastItem[];
 }
 
-type Props = Stateprops;
-const CardList: React.FC<Props> = ({items}) => {
+export type Props = Stateprops;
+export const CardList: React.FC<Props> = ({items}) => {
     return (
         <ScrollView style={styles.scrollView}>
             {items.map((item) => (
