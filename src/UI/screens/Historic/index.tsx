@@ -24,8 +24,8 @@ interface DispatchProps {
     removeHistoricRequest(): void;
 }
 
-type Props = StateProps & DispatchProps & DrawerScreenProps<{}>;
-const HistoricScreen: React.FC<Props> = ({
+export type Props = StateProps & DispatchProps & DrawerScreenProps<{}>;
+export const HistoricScreen: React.FC<Props> = ({
     navigation,
     historic,
     loadRequest,
@@ -47,6 +47,7 @@ const HistoricScreen: React.FC<Props> = ({
                             <Icon name="menu-outline" size={40} color="#fff" />
                         </TouchableOpacity>
                         <TouchableOpacity
+                            testID="btnRemove"
                             onPress={() => removeHistoricRequest()}>
                             <View style={styles.btnRemove}>
                                 <Icon
