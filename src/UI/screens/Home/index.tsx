@@ -6,7 +6,7 @@ import {
     View,
     StatusBar,
 } from 'react-native';
-import CardList from '../../components/CardList';
+import {CardList} from '../../components/CardList';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {DrawerScreenProps} from '@react-navigation/drawer';
@@ -20,6 +20,7 @@ import {City} from '../../../model/city/City';
 interface StateProps {
     cities: City[];
     cityName: string;
+    items: [];
     isLoading: boolean;
     error: boolean;
 }
@@ -29,14 +30,15 @@ interface DispatchProps {
     loadLocalStorageRequest(): void;
 }
 
-type Props = StateProps & DispatchProps & DrawerScreenProps<{}>;
+export type Props = StateProps & DispatchProps & DrawerScreenProps<{}>;
 
-const Home: React.FC<Props> = ({
+export const Home: React.FC<Props> = ({
     navigation,
     cities,
     cityName,
     isLoading,
     error,
+    items,
     searchRequest,
     loadRequest,
     loadLocalStorageRequest,
@@ -71,6 +73,7 @@ const Home: React.FC<Props> = ({
                         </TouchableOpacity>
                         <View style={styles.viewInput}>
                             <AutoComplete
+                                testID="inputSearch"
                                 onChangeText={handleAutocompleteChange}
                                 hideResults={hideAutocomplete}
                                 onBlur={() => setHideAutocomplete(true)}
@@ -108,7 +111,7 @@ const Home: React.FC<Props> = ({
                         <></>
                     )}
                     {isLoading ? <Text>Carregando</Text> : <></>}
-                    <CardList />
+                    <CardList items={items} />
                 </View>
             </View>
         </>
@@ -118,6 +121,7 @@ const Home: React.FC<Props> = ({
 const mapStateToProps = (state: ApplicationState) => ({
     cities: state.city.data,
     cityName: state.forecast.data.city,
+    items: state.forecast.data.items,
     isLoading: state.forecast.loading,
     error: state.forecast.error,
 });
