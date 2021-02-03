@@ -16,11 +16,12 @@ import {bindActionCreators, Dispatch} from 'redux';
 import * as cityActions from '../../../store/reducer/city/actions';
 import * as forecastActions from '../../../store/reducer/forecast/actions';
 import {City} from '../../../model/city/City';
+import {ForecastItem} from '../../../model/forecast/ForecastItem';
 
 interface StateProps {
     cities: City[];
     cityName: string;
-    items: [];
+    items: ForecastItem[];
     isLoading: boolean;
     error: boolean;
 }

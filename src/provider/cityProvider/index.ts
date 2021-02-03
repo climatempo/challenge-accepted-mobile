@@ -1,7 +1,8 @@
 import {City} from '../../model/city/City';
 import axios from 'axios';
+import {CLIMATEMPO_TOKEN} from '@env';
 
-const token = '0f8eb132cad772d27535111ee3826c20';
+const token = CLIMATEMPO_TOKEN;
 export class CityProvider {
     async getCity(city: string): Promise<City[]> {
         const resp = await axios.get<City[]>(

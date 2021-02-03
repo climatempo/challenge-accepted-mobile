@@ -2587,6 +2587,11 @@ domexception@^1.0.1:
   dependencies:
     webidl-conversions "^4.0.2"
 
+dotenv@^8.0.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
+  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
+
 ecc-jsbn@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz#3a83a904e54353287874c564b7549386849a98c9"
@@ -5861,6 +5866,13 @@ react-native-autocomplete-input@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-native-autocomplete-input/-/react-native-autocomplete-input-4.2.0.tgz#fcfc3d2f19134d4c3394a4e6a5aae13d8c4c9129"
   integrity sha512-bLZ9FO3NwcqYY3r6hefEEC4VW45L97kXuCyAqKXW1SJkkG/pGcen6zLq3SMFgoQuG3ryrO/ohz7gme7hFwzjoQ==
+
+react-native-dotenv@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-dotenv/-/react-native-dotenv-2.5.1.tgz#2869f92f015d629eecd8a8586bc6b70160132bf2"
+  integrity sha512-39no3YJviNJwC+hqILHLWGjcCMc8qpSMlJF+SzkLIH0dvnL2ZHxzC5+CRmKN54dCEjpBL0qUp7ZXI9JPhptgUg==
+  dependencies:
+    dotenv "^8.0.0"
 
 react-native-gesture-handler@^1.9.0:
   version "1.9.0"

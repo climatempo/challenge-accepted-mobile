@@ -2,8 +2,9 @@ import {Forecast} from '../../model/forecast/Forecast';
 import axios from 'axios';
 import {ForecastResponse} from '../../model/forecast/ForecastResponse';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CLIMATEMPO_TOKEN} from '@env';
 
-const token = '0f8eb132cad772d27535111ee3826c20';
+const token = CLIMATEMPO_TOKEN;
 export class ForecastProvider {
     async getForecast(id: number): Promise<Forecast> {
         const resp = await axios.get<ForecastResponse>(
