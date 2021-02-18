@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import NetInfo from '@react-native-community/netinfo'
-import database, { createWeather, getWeather, deleteAllWeather, updateWeather } from "../../database";
+import database, { createWeather, getWeather, updateWeather } from "../../database";
 
 
 import apiWeather, { token } from '../../services/api';
@@ -72,6 +72,7 @@ const Home = () => {
 
         if (statusNet) {
             
+            console.log(statusNet)
             await apiWeather.get(`6902/days/15?token=${token}`).then((result) => {
 
 
@@ -106,7 +107,7 @@ const Home = () => {
             })
         } else if (lastWeather.length > 0) {
             
-
+            console.log('2')
             setId(lastWeather[0].id)
             setNameCity(lastWeather[0].nameCity)
             setState(lastWeather[0].state)
@@ -115,7 +116,7 @@ const Home = () => {
             setCurrentDay(lastWeather[0])
 
         } else {
-           
+            console.log('3')
             alert('Não foi possível buscar os dados. Você está desconectado')
         }
     }
