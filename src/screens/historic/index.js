@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import {useNavigation} from "@react-navigation/native"
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import database, { deleteAllSearchCities,getAllSearchCities } from "../../database";
 
 
 
@@ -15,7 +16,7 @@ const Historic = () => {
 
 
     useEffect(()=>{
-        //setCities(getAllSearchCities().sorted('searchDate', true))
+        setCities(getAllSearchCities().sorted('searchDate', true))
         setLoad(false)
     },[])
 
@@ -76,6 +77,7 @@ const style = StyleSheet.create({
     containerSearch: {
         alignSelf: "flex-start",
         zIndex: 3,
+        width: "100%"
     },
     title: {
         fontSize: 22,

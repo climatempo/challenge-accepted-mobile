@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import database, {addSearchCity, getAllSearchCities  } from "../../database";
 
 
 import { apiSearch, token } from '../../services/api'
@@ -29,9 +30,10 @@ const Search = () => {
         const month = String(date.getMonth()+1).padStart(2,"0")
         const year = date.getFullYear()
 
-        // resultSearch.map((rs) => {
-        //     addSearchCity(rs.name, rs.id, rs.state, `${year}-${month}-${day}`, `${day}/${month}/${year}`)
-        // })
+        resultSearch.map((rs) => {
+            addSearchCity(rs.name, rs.id, rs.state, `${year}-${month}-${day}`, `${day}/${month}/${year}`)
+        })
+       
 
     }
 
