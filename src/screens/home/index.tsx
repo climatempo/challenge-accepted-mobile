@@ -1,22 +1,14 @@
 import React from 'react';
-import {
-  ScrollView,
-  View
-} from 'react-native';
-import CardList from '../../components/cardList';
-import SearchBar from '../../components/searchBar';
- 
- const Home = () => {
+import * as S from './styles';
 
-   return (
-       <View>
-            <SearchBar></SearchBar>
-            <ScrollView>
-              <CardList></CardList>
-            </ScrollView>
-       </View>
-      );
- };
+import CardList from '../../components/cardList';
+
+const Home = () => {
+  return (
+    <S.View>
+      <CardList></CardList>
+    </S.View>
+  );
+};
 
 export default Home;
- 

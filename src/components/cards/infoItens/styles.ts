@@ -1,32 +1,39 @@
 import styled from 'styled-components/native';
 
-export const Wrapper = styled.View`
-  width:100%;
-  flex-direction: row;
-`;
 
 export const Container = styled.View`
-  width: 50%; 
-  height: 70px;
-  background-color: #eeeeee;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 15px;
   flex-direction: row;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 `;
 
-export const Text = styled.Text`
-  font-family: Roboto-Regular;
-  font-size: 22px;
-  color: #434343;
+export const FlexRow = styled.View`
+  flex-direction: row;
 `;
 
-export const TextMinTemp = styled(Text)`
+export const TextDescription = styled.Text`
+  font-family: Roboto-Regular;
+  font-size: 16px;
+  font-weight: bold;
+  color: #707070;
+`;
+
+export const TextValue = styled.Text`
+  font-family: Roboto-Regular;
+  font-size: 18px;
+  color: #707070;
+  padding-left: 5px;
+`;
+
+export const TextMinTemp = styled(TextValue)`
   color: #0679BE;
 `;
 
-export const TextMaxTemp = styled(Text)`
+export const TextMaxTemp = styled(TextValue)`
   color: #C72F2F;
+  padding-right: 10px;
 `;

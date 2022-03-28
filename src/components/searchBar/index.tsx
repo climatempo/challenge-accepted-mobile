@@ -2,12 +2,15 @@ import React from 'react';
 import * as S from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const SearchBar = () => {
+const SearchBar = (value: any, onChangeText: any) => {
 return (
-  <S.Container>
-    <S.Text>Campo Grande</S.Text>
-    <Icon name="search" size={25}></Icon>
-  </S.Container>
+  <S.TextInput
+    placeholder="Busque por uma cidade"
+    value={value}
+    onChangeText={onChangeText}
+  >
+  </S.TextInput>
+  //   <Icon name="search" size={20}></Icon>
 )
 };
 

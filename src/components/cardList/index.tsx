@@ -1,52 +1,73 @@
-import React from 'react';
-import { FlatList } from 'react-native';
-import Cards from '../cards/card';
-import * as S from './styles';
-
-
-interface CardsItem {
-  item: {
-    id: string;
-    date: string;
-    info: string;
-  };
-}
-
-const data = [
-  { id: '1',
-    date: '17/07/2022',
-    info: 'Sol com muitas nuvens durante o dia. Períodos nublados, com chuva a qualquer hora.'
-  },
-  { id: '2',
-    date: '18/12/2022',
-    info: 'Períodos nublados, com chuva a qualquer hora. Sol com muitas nuvens durante o dia. '
-  },
-  { id: '3',
-  date: '18/12/2022',
-  info: 'Períodos nublados, com chuva a qualquer hora. Sol com muitas nuvens durante o dia. '
-},
-
-]
+import React, { useEffect, useState } from 'react'
+import { FlatList } from 'react-native'
+import Cards from '../cards/card'
+import { getCityId, getForecast } from '../../services/forecast/forecastService'
+import * as S from './styles'
+import SearchBar from '../searchBar'
+import { filter } from 'lodash';
 
 const CardList = () => {
 
-  const renderItem = ({item}: CardsItem) =>{
-    return (
-      <Cards date={item.date} description={item.info}/>
-    )
+  const [listForecast, setListForecast] = useState([]);
+  const [city, setCity] = useState<any>([]);
+  const [query, setQuery] = useState<any>('');
+  const [data, setData] = useState<any>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const cities = await getCityId('Campo Grande', 'MS', '4756cde6f48e59b8e4dd1be0a11917e9')
+        setCity(cities.data)
+
+        const forecast = await getForecast(cities.data[0].id, '4756cde6f48e59b8e4dd1be0a11917e9')
+        setListForecast(forecast.data.data)
+
+      } catch (error: any) {
+        console.log(error.response.data)
+      }
+    })()
+  }, [])
+
+  const handleSearch = (text: string) => {
+    const formattedQuery = text.toLowerCase();
+    const filteredData = filter(listForecast, (city: any) => {
+      return contains(city, formattedQuery);
+    });
+    setData(filteredData);
+    setQuery(text);
+  };
+
+  const contains = (name: any, query: any) => {
+
+    if (name.includes(query)) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const renderItem = ({ item }: any) => {
+    return <Cards item={item} />
   }
 
-return (
-  <S.Container>
-    <S.InfoText>Previsão para Campo Grande - MS</S.InfoText>
-    <FlatList
-     data={data}
-    renderItem={renderItem}
-    keyExtractor={(item) => item.id}
-    >
-    </FlatList>
-  </S.Container>
-)
-};
+  return (
+    <>
+      <SearchBar 
+        // onChangeText={handleSearch}
+        // value={query as string}
+      ></SearchBar>
+      <S.Container>
+        <S.InfoText>Campo Grande - MS</S.InfoText>
+        <FlatList
+          data={listForecast}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
 
-export default CardList;
+        >
+        </FlatList>
+      </S.Container>
+    </>
+  )
+}
+
+export default CardList

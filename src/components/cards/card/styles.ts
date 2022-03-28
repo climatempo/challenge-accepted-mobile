@@ -1,13 +1,14 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  width: 100%; 
+  max-width: 100%; 
   background-color: #FAFAFA;
   justify-content: space-around;
   align-items: flex-start;
-  border-radius: 6px;
-  elevation: 3;
+  border-radius: 7px;
+  elevation: 2;
   margin-bottom: 20px;
+  border: 1px solid #eeeeee;
 `;
 
 export const DataText = styled.Text`
