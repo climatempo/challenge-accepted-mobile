@@ -1,26 +1,27 @@
+import { ListItem, SearchBar } from '@react-native-elements/base'
 import React, { useEffect, useState } from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, StyleSheet, TouchableOpacity } from 'react-native'
+import { getCity, getCityWithState, getForecast } from '../../services/forecast/weatherService'
+import { TOKEN } from '@env'
 import Cards from '../cards/card'
-import { getCityId, getForecast } from '../../services/forecast/forecastService'
 import * as S from './styles'
-import SearchBar from '../searchBar'
-import { filter } from 'lodash';
 
 const CardList = () => {
 
-  const [listForecast, setListForecast] = useState([]);
-  const [city, setCity] = useState<any>([]);
-  const [query, setQuery] = useState<any>('');
-  const [data, setData] = useState<any>([]);
+  const [cityForecastData, setCityForecastData] = useState<any>([])
+  const [searchCities, setSearchCities] = useState<any>([])
+  const [city, setCity] = useState<any>([])
+  const [search, setSearch] = useState('')
+  const [filteredDataSource, setFilteredDataSource] = useState<any>([])
 
   useEffect(() => {
     (async () => {
       try {
-        const cities = await getCityId('Campo Grande', 'MS', '4756cde6f48e59b8e4dd1be0a11917e9')
+        const cities = await getCityWithState('Campo Grande', 'MS', TOKEN)
         setCity(cities.data)
 
-        const forecast = await getForecast(cities.data[0].id, '4756cde6f48e59b8e4dd1be0a11917e9')
-        setListForecast(forecast.data.data)
+        const forecast = await getForecast(cities.data[0].id, TOKEN)
+        setCityForecastData(forecast.data)
 
       } catch (error: any) {
         console.log(error.response.data)
@@ -28,46 +29,73 @@ const CardList = () => {
     })()
   }, [])
 
-  const handleSearch = (text: string) => {
-    const formattedQuery = text.toLowerCase();
-    const filteredData = filter(listForecast, (city: any) => {
-      return contains(city, formattedQuery);
-    });
-    setData(filteredData);
-    setQuery(text);
-  };
-
-  const contains = (name: any, query: any) => {
-
-    if (name.includes(query)) {
-      return true;
+  const getCities = async (text: string) => {
+    setSearch(text)
+    if (text.length < 5) return
+    try {
+      const cities = await getCity(search, TOKEN)
+      setSearchCities(cities.data)
+      setFilteredDataSource(cities.data)
+    } catch (error: any) {
+      console.log(error.response.data)
     }
+  }
 
-    return false;
-  };
+  const fetchForecast = async () => {
+    const forecast = await getForecast(searchCities.data[0].id, TOKEN)
+    setCityForecastData(forecast.data)
+  }
 
-  const renderItem = ({ item }: any) => {
+  const renderInfoCards = ({ item }: any) => {
     return <Cards item={item} />
   }
 
   return (
     <>
-      <SearchBar 
-        // onChangeText={handleSearch}
-        // value={query as string}
-      ></SearchBar>
       <S.Container>
-        <S.InfoText>Campo Grande - MS</S.InfoText>
-        <FlatList
-          data={listForecast}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
+        <SearchBar
+          platform='android'
+          value={search}
+          lightTheme
+          placeholder='Busque por uma cidade'
+          onChangeText={text => getCities(text)}
+          autoCorrect={false}
+        >
+        </SearchBar>
+        <S.ContainerList showDisplay={search.length != 0}>
+          <FlatList
+            data={filteredDataSource}
+            renderItem={({ item }): any => (
+              <TouchableOpacity onPress={async () => await setCity(item.name)}>
+                <ListItem.Title style={styles.text}>
+                  {item.name} / {item.state}
+                </ListItem.Title>
+              </TouchableOpacity>
+            )}
+          >
+          </FlatList>
+        </S.ContainerList>
 
+        <FlatList
+          ListFooterComponent={<S.FooterContainer></S.FooterContainer>}
+          ListHeaderComponent={<S.InfoText>{cityForecastData.name} / {cityForecastData.state}</S.InfoText>}
+          data={cityForecastData.data}
+          renderItem={renderInfoCards}
+          showsVerticalScrollIndicator={false}
         >
         </FlatList>
       </S.Container>
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  text: {
+    color: "#707070",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+
+});
 
 export default CardList

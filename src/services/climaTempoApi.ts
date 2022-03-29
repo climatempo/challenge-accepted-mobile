@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { API_ADVISOR } from '@env'
 
 export const forecastApi = axios.create({
-  baseURL: "http://apiadvisor.climatempo.com.br/api/v1/forecast/locale"
+  baseURL: `${API_ADVISOR}/forecast/locale`
 })
 
 export const localeApi = axios.create({
-  baseURL: "http://apiadvisor.climatempo.com.br/api/v1/locale"
+  baseURL: `${API_ADVISOR}/locale`
 })
