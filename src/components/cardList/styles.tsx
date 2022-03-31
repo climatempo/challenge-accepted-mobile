@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import LoaderComponent from '../../components/loader';
 
 type ContainerListProps = {
   showDisplay: boolean;
@@ -10,13 +11,15 @@ export const Container = styled.View`
   background-color: #fefefe;
   justify-content: center;
   align-items: flex-start;
-  padding:20px;
+  padding: 20px;
   padding-top: 0;
 `;
 
 export const ContainerList =  styled.View<ContainerListProps>`
   width: 115%; 
-  height: 350px;
+  height: auto;
+  max-height: 300px;
+  padding-bottom: 20px;
   top: 55px;
   display: ${props => props.showDisplay ? 'flex' : 'none'} ;
   position: absolute;
@@ -30,6 +33,10 @@ export const ContainerList =  styled.View<ContainerListProps>`
 
 export const FooterContainer = styled.View`
   height: 190px;
+`;
+
+export const Loader = styled(LoaderComponent)`
+  margin-top: 20px;
 `;
 
 export const InfoText = styled.Text`
@@ -51,7 +58,11 @@ export const TextInput = styled.TextInput`
   border-radius: 8px;
   elevation: 2;
   margin: 20px;
-
 `;
 
-
+export const ClearHistoryButton = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 20px;
+`;
