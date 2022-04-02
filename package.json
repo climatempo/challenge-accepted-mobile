@@ -6,10 +6,12 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest",
+    "test": "jest --watch",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
     "@react-native-async-storage/async-storage": "^1.17.1",
     "@react-native-elements/base": "github:react-native-elements/react-native-elements#base",
     "@rneui/base": "^4.0.0-rc.1",
@@ -28,10 +30,11 @@
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/core": "^7.17.8",
+    "@babel/plugin-proposal-decorators": "^7.17.8",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.180",
     "@types/react-native": "^0.66.15",
     "@types/react-native-dotenv": "^0.2.0",
@@ -40,26 +43,23 @@
     "@types/styled-components": "^5.1.24",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
-    "babel-jest": "^26.6.3",
+    "babel-jest": "^27.0.0",
     "eslint": "^7.14.0",
-    "jest": "^26.6.3",
+    "jest": "^27.5.1",
     "metro-react-native-babel-preset": "^0.66.2",
     "react-native-svg-transformer": "^1.0.0",
     "react-test-renderer": "17.0.2",
-    "typescript": "^4.4.4"
+    "ts-jest": "^27.1.4",
+    "typescript": "^4.6.3"
   },
   "resolutions": {
     "@types/react": "^17"
   },
-  "jest": {
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
-  }
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "**/*.{js,jsx,ts,tsx}",
+    "!**/coverage/**",
+    "!**/node_modules/**",
+    "!**/babel.config.js/**"
+  ]
 }

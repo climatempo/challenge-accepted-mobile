@@ -1,5 +1,6 @@
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: [['module:metro-react-native-babel-preset'], ['@babel/preset-env', { targets: { node: 'current' } }],
+    '@babel/preset-typescript',],
   plugins: [
     ["module:react-native-dotenv", {
       "moduleName": "@env",
@@ -8,6 +9,7 @@ module.exports = {
       "whitelist": null,
       "safe": false,
       "allowUndefined": true
-    }]
+    }],
+    
   ]
 };
