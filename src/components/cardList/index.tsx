@@ -7,6 +7,10 @@ import { ListItem, SearchBar } from '@react-native-elements/base'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import { getCity, getCityWithState, getForecast } from '../../services/forecast/weatherService'
+import { database } from '../../services/database';
+import { Q } from '@nozbe/watermelondb';
+
+const cityForecastDb = database.collections.get('city_forecast')
 
 const CardList = () => {
 
@@ -16,6 +20,7 @@ const CardList = () => {
   const [cityForecastData, setCityForecastData] = useState<any>([])
   const [filteredDataSource, setFilteredDataSource] = useState<any>([])
   const [sourceOfList, setSourceOfList] = useState<'storage' | 'api' | null>(null)
+
 
   useEffect(() => {
     (async () => {
@@ -36,8 +41,31 @@ const CardList = () => {
     })()
   }, [])
 
-  const saveCitiesStorage = async (id: string, city: any) => {
-    await AsyncStorage.setItem(id.toString(), city)
+  const saveCitiesDataOnStorages = async (id: number, cityStringified: string) => {
+
+    await AsyncStorage.setItem(id.toString(), cityStringified)
+
+    // Função que salva forecast no banco
+    await database.write(async () => {
+      //IMPORTANTE: Todas as funções de alteração tem que estar dentro essa função de "write"
+      const storageCity = await cityForecastDb.query(Q.where('city_id', Number(id))).fetch()
+      // Se já existir a localidade salva ele ignora salvar ela novamente
+      // Se estiver online sempre consultar o valor novo e atualizar o forecast data no banco
+      if (storageCity.length > 0) {
+        // Se ja existir ele apenas atualiza o valor, mas não cria um novo
+        await storageCity[0].update((city: any) => {
+          city.data = cityStringified
+        }).catch(err => console.log(err))
+      } else {
+        await cityForecastDb.create((city: any) => {
+          city.data = cityStringified
+          city.city_id = Number(id)
+        }).catch(err => console.log(err))
+      }
+
+    })
+    // Remover console depois
+    console.log(await cityForecastDb.query().fetch())
   }
 
   const getCitiesFromStorage = async () => {
@@ -74,7 +102,7 @@ const CardList = () => {
       setCityForecastData({})
     }
 
-    await saveCitiesStorage(item.id, JSON.stringify(item))
+    await saveCitiesDataOnStorages(item.id, JSON.stringify(item))
     setSearch('')
     setShowSearch(false)
   }
