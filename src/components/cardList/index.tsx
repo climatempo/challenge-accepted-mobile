@@ -2,8 +2,10 @@ import { TOKEN } from '@env'
 import * as S from './styles'
 import { isEmpty } from 'lodash'
 import Cards from '../cards/card'
+import NoInternetModal from '../noInternetModal'
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet } from 'react-native'
+import { FlatList,  StyleSheet } from 'react-native'
+import NetInfo from "@react-native-community/netinfo";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import CityForecastModel from '../../model/CityForecastModel'
 import SearchHistoricModel from '../../model/SearchHistoricModel'
@@ -19,6 +21,7 @@ const CardList = () => {
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+  const [modalVisible, setModalVisible] = useState(true);
   const [cityForecastData, setCityForecastData] = useState<any>([])
   const [filteredDataSource, setFilteredDataSource] = useState<any>([])
   const [sourceOfList, setSourceOfList] = useState<'storage' | 'api' | null>(null)
@@ -29,6 +32,11 @@ const CardList = () => {
       try {
         setLoading(true)
 
+        const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
+          const offline = !(state.isConnected && state.isInternetReachable);
+          setModalVisible(offline);
+        });
+
         const latestCity = JSON.parse(await AsyncStorage.getItem('latest') || '{}')
         console.log('latest city: ', latestCity)
 
@@ -38,6 +46,9 @@ const CardList = () => {
           setCityForecastData((await getForecast(latestCity.id, TOKEN)).data)
 
         setLoading(false);
+
+        return () => removeNetInfoSubscription();
+
 
       } catch (error: any) {
         setLoading(true)
@@ -108,9 +119,11 @@ const CardList = () => {
     return <S.Loader />;
   }
 
+
   return (
     <>
       <S.Container>
+        {/* @ts-ignore */}
         <SearchBar
           platform='android'
           value={search}
@@ -157,6 +170,11 @@ const CardList = () => {
         >
         </FlatList>
       </S.Container>
+
+      <NoInternetModal
+        show={modalVisible}
+        closeModal={() => setModalVisible(false)}
+      />
     </>
   )
 }

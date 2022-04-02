@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import LoaderComponent from '../../components/loader';
+import LoaderComponent from '../loader';
 
 type ContainerListProps = {
   showDisplay: boolean;
