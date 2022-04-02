@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
 import { TOKEN } from '@env'
 import * as S from './styles'
+import { isEmpty } from 'lodash'
 import Cards from '../cards/card'
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome5'
+import CityForecastModel from '../../model/CityForecastModel'
+import SearchHistoricModel from '../../model/SearchHistoricModel'
 import { ListItem, SearchBar } from '@react-native-elements/base'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { FlatList, StyleSheet, TouchableOpacity } from 'react-native'
-import { getCity, getCityWithState, getForecast } from '../../services/forecast/weatherService'
-import { database } from '../../services/database';
-import { Q } from '@nozbe/watermelondb';
+import { getCity, getForecast } from '../../services/forecast/weatherService'
 
-const cityForecastDb = database.collections.get('city_forecast')
+const cityForecastModel = new CityForecastModel()
+const searchHistoricModel = new SearchHistoricModel()
 
 const CardList = () => {
 
@@ -21,63 +23,39 @@ const CardList = () => {
   const [filteredDataSource, setFilteredDataSource] = useState<any>([])
   const [sourceOfList, setSourceOfList] = useState<'storage' | 'api' | null>(null)
 
-
   useEffect(() => {
+
     (async () => {
       try {
-        setLoading(true);
+        setLoading(true)
 
-        const cities = await getCityWithState('Campo Grande', 'MS', TOKEN)
+        const latestCity = JSON.parse(await AsyncStorage.getItem('latest') || '{}')
+        console.log('latest city: ', latestCity)
 
-        const forecast = await getForecast(cities.data[0].id, TOKEN)
-        setCityForecastData(forecast.data)
+        if (isEmpty(latestCity))
+          setCityForecastData((await getForecast('3477', TOKEN)).data)
+        else
+          setCityForecastData((await getForecast(latestCity.id, TOKEN)).data)
+
         setLoading(false);
 
       } catch (error: any) {
-        setLoading(true);
+        setLoading(true)
+        if (error.response.data) console.log(error.response.data)
+        else console.log(error.message)
 
-        console.log(error.response.data)
       }
     })()
   }, [])
 
-  const saveCitiesDataOnStorages = async (id: number, cityStringified: string) => {
-
-    await AsyncStorage.setItem(id.toString(), cityStringified)
-
-    // Função que salva forecast no banco
-    await database.write(async () => {
-      //IMPORTANTE: Todas as funções de alteração tem que estar dentro essa função de "write"
-      const storageCity = await cityForecastDb.query(Q.where('city_id', Number(id))).fetch()
-      // Se já existir a localidade salva ele ignora salvar ela novamente
-      // Se estiver online sempre consultar o valor novo e atualizar o forecast data no banco
-      if (storageCity.length > 0) {
-        // Se ja existir ele apenas atualiza o valor, mas não cria um novo
-        await storageCity[0].update((city: any) => {
-          city.data = cityStringified
-        }).catch(err => console.log(err))
-      } else {
-        await cityForecastDb.create((city: any) => {
-          city.data = cityStringified
-          city.city_id = Number(id)
-        }).catch(err => console.log(err))
-      }
-
-    })
-    // Remover console depois
-    console.log(await cityForecastDb.query().fetch())
-  }
-
   const getCitiesFromStorage = async () => {
-    let allKeys = await AsyncStorage.getAllKeys() as string[]
-    const storedCities = await AsyncStorage.multiGet(allKeys)
-    setFilteredDataSource(storedCities.map((city: any) => { return JSON.parse(city[1] || '{}') }))
+    setFilteredDataSource((await searchHistoricModel.getAll()).map(city => JSON.parse(city.data)))
     setSourceOfList('storage')
   }
 
   const getCities = async (text: string) => {
     setSearch(text)
-    if (text.length < 5) return
+    if (text.length < 4) return
     try {
       const cities = await getCity(search, TOKEN)
       setFilteredDataSource(cities.data)
@@ -87,29 +65,29 @@ const CardList = () => {
     }
   }
 
-  const renderInfoCards = ({ item }: any) => {
-    return <Cards item={item} />
-  }
-
   const renderSearchCityList = async (item: any) => {
     try {
       setLoading(true);
+
       const forecastData = await getForecast(item.id, TOKEN)
-      setLoading(false);
+      await cityForecastModel.saveCityForecast(item.id, JSON.stringify(forecastData))
       setCityForecastData(forecastData.data)
-    } catch (error) {
+
+      await searchHistoricModel.saveOnHistoric(item.id, JSON.stringify(item))
+      await AsyncStorage.setItem('latest', JSON.stringify(item))
+
+      setSearch('')
+      setShowSearch(false)
+      setLoading(false);
+    } catch (error: any) {
+      console.log(error.message)
       setLoading(false);
       setCityForecastData({})
     }
-
-    await saveCitiesDataOnStorages(item.id, JSON.stringify(item))
-    setSearch('')
-    setShowSearch(false)
   }
 
   const clearHistoryByCity = async (itemId: string) => {
-    console.log(itemId)
-    await AsyncStorage.removeItem(itemId.toString())
+    await searchHistoricModel.deleteCityFromHistoric(itemId)
     getCitiesFromStorage()
   }
 
@@ -119,10 +97,11 @@ const CardList = () => {
         <S.ClearHistoryButton onPress={() => clearHistoryByCity(item.id)}>
           <Icon name="times" size={18} color={'#707070'} />
         </S.ClearHistoryButton>)
-    } else {
-      return
-    }
+    } else { return }
+  }
 
+  const renderInfoCards = ({ item }: any) => {
+    return <Cards item={item} />
   }
 
   if (loading) {
@@ -159,16 +138,22 @@ const CardList = () => {
                 {renderClearHistoryButton(item)}
               </S.ClearHistoryButton>
             )}
+            ListEmptyComponent={
+              <S.EmptyText>Cidade não encontrada </S.EmptyText>
+            }
           >
           </FlatList>
         </S.ContainerList>
 
         <FlatList
           ListFooterComponent={<S.FooterContainer></S.FooterContainer>}
-          ListHeaderComponent={<S.InfoText>{cityForecastData.name} / {cityForecastData.state}</S.InfoText>}
+          ListHeaderComponent={<S.InfoText>{cityForecastData.name} {cityForecastData.state}</S.InfoText>}
           data={cityForecastData.data}
           renderItem={renderInfoCards}
           showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <S.EmptyText>Você não tem acesso à essa cidade! </S.EmptyText>
+          }
         >
         </FlatList>
       </S.Container>

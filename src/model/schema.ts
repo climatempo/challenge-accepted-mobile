@@ -6,7 +6,14 @@ export default appSchema({
     tableSchema({
       name: 'city_forecast',
       columns: [
-        { name: 'city_id', type: 'number' },
+        { name: 'city_id', type: 'number', isIndexed: true },
+        { name: 'data', type: 'string' },
+      ],
+    }),
+    tableSchema({
+      name: 'historic',
+      columns: [
+        { name: 'city_id', type: 'number', isIndexed: true },
         { name: 'data', type: 'string' },
       ],
     }),

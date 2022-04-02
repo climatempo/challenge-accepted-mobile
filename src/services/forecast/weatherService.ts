@@ -1,13 +1,19 @@
-import {forecastApi, localeApi} from '../climaTempoApi';
+import axios from 'axios'
+import { API_ADVISOR } from '@env'
 
-export async function getForecast(id: string, token: string){
- return forecastApi.get(`/${id}/days/15?token=${token}`)
+
+const axiosInstance = axios.create({
+  baseURL: API_ADVISOR
+})
+
+export async function getForecast(id: string, token: string) {
+  return axiosInstance.get(`/forecast/locale/${id}/days/15?token=${token}`)
 }
 
-export async function getCity(cityName: string, token: string){  
- return localeApi.get(`/city?name=${cityName}&country=BR&token=${token}`)
+export async function getCity(cityName: string, token: string) {
+  return axiosInstance.get(`/locale/city?name=${cityName}&country=BR&token=${token}`)
 }
 
-export async function getCityWithState(cityName: string, cityState: string, token: string){  
-  return localeApi.get(`/city?name=${cityName}&state=${cityState}&token=${token}`)
- }
+export async function getCityWithState(cityName: string, cityState: string, token: string) {
+  return axiosInstance.get(`/locale/city?name=${cityName}&state=${cityState}&token=${token}`)
+}

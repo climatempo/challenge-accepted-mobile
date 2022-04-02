@@ -4,7 +4,6 @@ import * as S from './styles';
 
 
 const Cards = ({item}: any) => {
-
   return (
     <S.Container>
       <S.DataText>{item.date_br}</S.DataText>

@@ -1,8 +1,9 @@
 import {Database} from '@nozbe/watermelondb';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
-import CityForecast from '../model/CityForecast';
+import CityForecastModel from '../model/CityForecastModel';
 
 import schema from '../model/schema';
+import SearchHistoricModel from '../model/SearchHistoricModel';
 
 const adapter = new SQLiteAdapter({
   schema,
@@ -11,5 +12,5 @@ const adapter = new SQLiteAdapter({
 
 export const database = new Database({
   adapter,
-  modelClasses: [CityForecast],
+  modelClasses: [CityForecastModel, SearchHistoricModel],
 });

@@ -66,3 +66,10 @@ export const ClearHistoryButton = styled.TouchableOpacity`
   justify-content: space-between;
   padding-right: 20px;
 `;
+
+export const EmptyText = styled.Text`
+  font-family: 'Cairo-Regular';
+  font-size: 16px;
+  color: gray;
+  padding: 10px 20px;
+`;
