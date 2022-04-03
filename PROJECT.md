@@ -24,3 +24,7 @@
 - Styled Components
 - Async Storage
 - Jest e ts-jest
+
+### Tela principal
+
+![image](https://user-images.githubusercontent.com/43301791/161408565-85142e6b-b3e7-4725-a035-89f4a962a190.png)
