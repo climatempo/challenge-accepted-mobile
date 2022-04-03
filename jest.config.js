@@ -1,5 +1,5 @@
 // jest.config.js
-const { defaults } = require('ts-jest/presets')
+const {defaults} = require('ts-jest/presets');
 
 module.exports = {
   ...defaults,
@@ -10,11 +10,11 @@ module.exports = {
     },
   },
   transformIgnorePatterns: [
-    "node_modules/(?!(react-native|my-project|react-native-button)/)"
+    'node_modules/(?!(react-native|my-project|react-native-button)/)',
   ],
   transform: {
     '^.+\\.jsx$': 'babel-jest',
     '^.+\\.tsx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-}
+};

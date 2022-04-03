@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 
-
 export const Container = styled.View`
   width: 100%;
   justify-content: space-between;
@@ -30,10 +29,10 @@ export const TextValue = styled.Text`
 `;
 
 export const TextMinTemp = styled(TextValue)`
-  color: #0679BE;
+  color: #0679be;
 `;
 
 export const TextMaxTemp = styled(TextValue)`
-  color: #C72F2F;
+  color: #c72f2f;
   padding-right: 10px;
 `;

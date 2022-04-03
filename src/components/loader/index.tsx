@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, ViewProps } from 'react-native';
+import {ActivityIndicator, ViewProps} from 'react-native';
 
 interface LoaderProps extends ViewProps {
   color?: string;

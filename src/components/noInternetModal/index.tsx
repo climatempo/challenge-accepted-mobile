@@ -1,11 +1,11 @@
 import React from 'react';
-import { Modal } from 'react-native'
+import {Modal} from 'react-native';
 import * as S from './styles';
 
-const NoInternetModal = ({ show, closeModal }: any) => {
+const NoInternetModal = ({show, closeModal}: any) => {
   return (
     <S.Container>
-      <Modal animationType={'slide'} transparent={true} visible={show} >
+      <Modal animationType={'slide'} transparent={true} visible={show}>
         <S.Container>
           <S.ModalView>
             <S.Text>Erro de conexão</S.Text>
@@ -19,7 +19,7 @@ const NoInternetModal = ({ show, closeModal }: any) => {
         </S.Container>
       </Modal>
     </S.Container>
-  )
+  );
 };
 
 export default NoInternetModal;

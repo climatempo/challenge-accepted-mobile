@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  max-width: 100%; 
-  background-color: #FFFFFF;
+  max-width: 100%;
+  background-color: #ffffff;
   justify-content: space-around;
   align-items: flex-start;
   border-radius: 7px;
@@ -13,7 +13,7 @@ export const Container = styled.View`
 export const DataText = styled.Text`
   font-family: Roboto-Regular;
   font-size: 16px;
-  color: #4B4B4B;
+  color: #4b4b4b;
   padding: 15px;
 `;
 

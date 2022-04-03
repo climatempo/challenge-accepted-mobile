@@ -6,23 +6,23 @@ type ContainerListProps = {
 };
 
 export const Container = styled.View`
-  width: 100%; 
+  width: 100%;
   position: relative;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   justify-content: center;
   align-items: flex-start;
   padding: 20px;
   padding-top: 0;
 `;
 
-export const ContainerList =  styled.View<ContainerListProps>`
-  width: 115%; 
+export const ContainerList = styled.View<ContainerListProps>`
+  width: 115%;
   height: auto;
   max-height: 300px;
   padding: 10px;
   top: 70px;
   /* left: 20px; */
-  display: ${props => props.showDisplay ? 'flex' : 'none'} ;
+  display: ${props => (props.showDisplay ? 'flex' : 'none')};
   position: absolute;
   background-color: #fefefe;
   border-bottom-left-radius: 7px;
@@ -50,8 +50,8 @@ export const InfoText = styled.Text`
 `;
 
 export const TextInput = styled.TextInput`
- width: 90%; 
-  background-color: #FAFAFA;
+  width: 90%;
+  background-color: #fafafa;
   justify-content: flex-start;
   align-items: center;
   padding: 8px 14px;
