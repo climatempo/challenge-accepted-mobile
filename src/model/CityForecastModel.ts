@@ -12,14 +12,9 @@ export default class CityForecastModel extends Model {
 
   async saveCityForecast(id: number, cityStringified: string) {
 
-    // Função que salva forecast no banco
     await database.write(async () => {
-      //IMPORTANTE: Todas as funções de alteração tem que estar dentro essa função de "write"
       const storageCity = await this.cityForecastDb.query(Q.where('city_id', Number(id))).fetch()
-      // Se já existir a localidade salva ele ignora salvar ela novamente
-      // Se estiver online sempre consultar o valor novo e atualizar o forecast data no banco
       if (storageCity.length > 0) {
-        // Se ja existir ele apenas atualiza o valor, mas não cria um novo
         await storageCity[0].update((city: any) => {
           city.data = cityStringified
         }).catch(err => console.log(err))
@@ -29,12 +24,11 @@ export default class CityForecastModel extends Model {
           city.city_id = Number(id)
         }).catch(err => console.log(err))
       }
-
     })
   }
 
-  async getCityById(cityId: string, id?: string): Promise<Object> {
-    return await this.cityForecastDb.query(Q.where('city_id', Number(id))).fetch()
+  async getCityById(cityId: string): Promise<Object> {
+    return await this.cityForecastDb.query(Q.where('city_id', Number(cityId))).fetch()
   }
 
   async getAll(): Promise<Object> {

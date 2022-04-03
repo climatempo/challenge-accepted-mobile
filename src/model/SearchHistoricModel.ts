@@ -33,7 +33,7 @@ export default class SearchHistoricModel extends Model {
     return await this.searchHistoricDb.query().fetch()
   }
 
-  async getCityById(cityId: string, id?: string): Promise<any> {
+  async getHistoryById(cityId: string): Promise<any> {
     return await this.searchHistoricDb.query(Q.where('city_id', Number(cityId))).fetch()
   }
 

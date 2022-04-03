@@ -1,33 +1,35 @@
 import styled from 'styled-components/native';
 
-export const Modal = styled.Modal`
+export const Container = styled.View`
+  flex: 1;
   justify-content: flex-end;
-  margin: 0;
+  align-items: center;
+  background-color: #222;
+  opacity: 60;
 `
-export const View = styled.View`
+export const ModalView = styled.View`
   background-color: #fff;
   padding: 20px 16px;
   padding-bottom: 40px;
-  align-items: center;
+  max-height: 200px;
+  width: 100%;
 `
-
 export const Text = styled.Text`
   font-family: Roboto-Regular;
   font-size: 20px;  
   color: #000;
+  font-weight: 700;
 `
-
 export const TextDescription = styled.Text`
   font-family: Roboto-Regular;
   font-size: 16px;
   color: #555;
   margin-top: 14px;
-  text-align: center;
+  text-align: left;
   margin-bottom: 10px;
 `
-
 export const Button = styled.TouchableOpacity`
-  background-color: '#000';
+  background-color: #000;
   padding: 12px 16px;
   width: 100%;
   align-items: center;

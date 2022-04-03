@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { API_ADVISOR } from '@env'
 
-
 const axiosInstance = axios.create({
   baseURL: API_ADVISOR
 })
@@ -15,5 +14,5 @@ export async function getCity(cityName: string, token: string) {
 }
 
 export async function getCityWithState(cityName: string, cityState: string, token: string) {
-  return axiosInstance.get(`/locale/city?name=${cityName}&state=${cityState}&token=${token}`)
+  return axiosInstance.get(`/locale/city?name=${cityName}&state=${cityState}&troken=${token}`)
 }
