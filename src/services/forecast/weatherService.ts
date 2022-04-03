@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { API_ADVISOR } from '@env'
+import Config from 'react-native-config'
 
 const axiosInstance = axios.create({
-  baseURL: API_ADVISOR
+  baseURL: Config.API_ADVISOR
 })
 
 export async function getForecast(id: string, token: string) {

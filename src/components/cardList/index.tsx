@@ -1,10 +1,9 @@
-import { TOKEN } from '@env'
 import * as S from './styles'
 import { isEmpty } from 'lodash'
 import Cards from '../cards/card'
 import NoInternetModal from '../noInternetModal'
 import React, { useEffect, useState } from 'react'
-import { FlatList,  StyleSheet } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 import NetInfo from "@react-native-community/netinfo";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import CityForecastModel from '../../model/CityForecastModel'
@@ -32,7 +31,6 @@ const CardList = () => {
     (async () => {
       try {
         setLoading(true)
-        console.log("react native config: ", Config.TOKEN)
         const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
           const offline = !(state.isConnected && state.isInternetReachable);
           setModalVisible(offline);
@@ -42,9 +40,9 @@ const CardList = () => {
         console.log('latest city: ', latestCity)
 
         if (isEmpty(latestCity))
-          setCityForecastData((await getForecast('3477', TOKEN)).data)
+          setCityForecastData((await getForecast('3477', Config.TOKEN)).data)
         else
-          setCityForecastData((await getForecast(latestCity.id, TOKEN)).data)
+          setCityForecastData((await getForecast(latestCity.id, Config.TOKEN)).data)
 
         setLoading(false);
 
@@ -69,7 +67,7 @@ const CardList = () => {
     setSearch(text)
     if (text.length < 4) return
     try {
-      const cities = await getCity(search, TOKEN)
+      const cities = await getCity(search, Config.TOKEN)
       setFilteredDataSource(cities.data)
       setSourceOfList('api')
     } catch (error: any) {
@@ -81,7 +79,7 @@ const CardList = () => {
     try {
       setLoading(true);
 
-      const forecastData = await getForecast(item.id, TOKEN)
+      const forecastData = await getForecast(item.id, Config.TOKEN)
       await cityForecastModel.saveCityForecast(item.id, JSON.stringify(forecastData))
       setCityForecastData(forecastData.data)
 
@@ -93,7 +91,9 @@ const CardList = () => {
       setLoading(false);
     } catch (error: any) {
       console.log(error.message)
+      setSearch('')
       setLoading(false);
+      setShowSearch(false)
       setCityForecastData({})
     }
   }
@@ -183,9 +183,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
-  search:{
+  search: {
     backgroundColor: "#F2F2F2",
-    width: '100%'
   }
 
 });

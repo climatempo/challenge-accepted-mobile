@@ -46,6 +46,7 @@ export const InfoText = styled.Text`
   font-weight: bold;
   color: #707070;
   padding-bottom: 15px;
+  padding-left: 5px;
 `;
 
 export const TextInput = styled.TextInput`
