@@ -8,7 +8,7 @@ type ContainerListProps = {
 export const Container = styled.View`
   width: 100%; 
   position: relative;
-  background-color: #fefefe;
+  background-color: #F2F2F2;
   justify-content: center;
   align-items: flex-start;
   padding: 20px;
@@ -19,8 +19,9 @@ export const ContainerList =  styled.View<ContainerListProps>`
   width: 115%; 
   height: auto;
   max-height: 300px;
-  padding-bottom: 20px;
-  top: 55px;
+  padding: 10px;
+  top: 70px;
+  /* left: 20px; */
   display: ${props => props.showDisplay ? 'flex' : 'none'} ;
   position: absolute;
   background-color: #fefefe;

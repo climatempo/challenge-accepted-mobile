@@ -12,6 +12,7 @@ import SearchHistoricModel from '../../model/SearchHistoricModel'
 import { ListItem, SearchBar } from '@react-native-elements/base'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getCity, getForecast } from '../../services/forecast/weatherService'
+import Config from "react-native-config";
 
 const cityForecastModel = new CityForecastModel()
 const searchHistoricModel = new SearchHistoricModel()
@@ -31,7 +32,7 @@ const CardList = () => {
     (async () => {
       try {
         setLoading(true)
-
+        console.log("react native config: ", Config.TOKEN)
         const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
           const offline = !(state.isConnected && state.isInternetReachable);
           setModalVisible(offline);
@@ -111,23 +112,18 @@ const CardList = () => {
     } else { return }
   }
 
-  const renderInfoCards = ({ item }: any) => {
-    return <Cards item={item} />
-  }
-
   if (loading) {
     return <S.Loader />;
   }
-
 
   return (
     <>
       <S.Container>
         {/* @ts-ignore */}
         <SearchBar
-          platform='android'
+          containerStyle={styles.search}
+          platform='ios'
           value={search}
-          lightTheme
           placeholder='Busque por uma cidade'
           onChangeText={text => getCities(text)}
           autoCorrect={false}
@@ -162,7 +158,9 @@ const CardList = () => {
           ListFooterComponent={<S.FooterContainer></S.FooterContainer>}
           ListHeaderComponent={<S.InfoText>{cityForecastData.name} {cityForecastData.state}</S.InfoText>}
           data={cityForecastData.data}
-          renderItem={renderInfoCards}
+          renderItem={({ item }: any) => {
+            return <Cards item={item} />
+          }}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <S.EmptyText>Você não tem acesso à essa cidade! </S.EmptyText>
@@ -185,6 +183,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
+  search:{
+    backgroundColor: "#F2F2F2",
+    width: '100%'
+  }
 
 });
 
