@@ -73,13 +73,13 @@ Para atingir que os requisitos fossem cumpridos foi necessario a utilização de
 
 ## Como Executar a Aplicação
 
-Para executar a aplicação em desenvolvimento é necessario que haja o flutter instalado na sua maquina, é possvel acessar o passo a passo na ***Flutter Documentation*** e acessando o ***Get Started***.
+Para executar a aplicação em desenvolvimento é necessario que haja o flutter instalado na sua maquina, é possvel acessar o passo a passo na [Flutter documentation](https://docs.flutter.dev/) e acessando o [Get Started](https://docs.flutter.dev/get-started/install).
 
-Ira ser exigido que tenha ***Android SDK***, é possivel adquirir durante a instalação do ***Andoid Studio*** que ja contem a opção do Android Sdk na instalação. após concluir a instalação do ***Andoid Studio*** e ***Android SDK*** deve-se retornar a pagina de instalação do ***Flutter*** e continuar o passo a passo.
+Ira ser exigido que tenha ***Android SDK***, é possivel adquirir durante a instalação do [Andoid Studio](https://developer.android.com/studio?hl=pt-br) que ja contem a opção do Android Sdk na instalação. após concluir a instalação do [Andoid Studio](https://developer.android.com/studio?hl=pt-br) e ***Android SDK*** deve-se retornar a pagina de instalação do [Get Started](https://docs.flutter.dev/get-started/install) e continuar o passo a passo.
 
 Apos a Concluão não é obrigatorio que seja utilizado o ***Android STUDIO***, pode ser utilizado o VSCODE para o desenvolvimento caso prefira esse meio.
 
 ##
 Obs:
-Irei deixar o link do ***DebugApk*** para caso desejem dar uma olhada, link via ***Google Drive***;
+Irei deixar o link do ***DebugApk*** para caso desejem dar uma olhada, link via [Google Drive](https://drive.google.com/file/d/1Hk-lLXrbAdhnknzrlSWG5fbrGHwkoUpU/view?usp=drive_link);
 
